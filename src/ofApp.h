@@ -1,6 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxOsc.h"
+
+#define PORT 6999
 
 class ofApp : public ofBaseApp{
 
@@ -18,7 +21,6 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		
     
         ofSoundPlayer  sound0;
 		ofSoundPlayer  sound1;
@@ -29,10 +31,12 @@ class ofApp : public ofBaseApp{
         ofSoundPlayer  sound6;
         ofSoundPlayer  sound7;
     
+        ofxOscReceiver receiver;
     
+        int rxButton1, rxButton2, rxButton3, rxButton4, rxButton5, rxButton6, rxButton7;
+    
+        bool somethingIsPlaying;
 
 		ofTrueTypeFont	font;
-		float 			synthPosition;
-		
 };
 

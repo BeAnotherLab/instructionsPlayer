@@ -1,4 +1,4 @@
-loadedInterfaceName = "The Machine";
+loadedInterfaceName = "TheMachineToBeAnother";
 
 interfaceOrientation = "portrait";
 
@@ -27,72 +27,87 @@ pages = [[
 },
 
 {
-	"name":"buttontest",
+    "name": "nowPlaying",
+    "type": "Label",
+    "x": -0.325, "y": .455,
+    "width": 1, "height": 1,
+    "value": "nothing is playing",
+},
+
+{
+	"name":"button1",
 	"type":"Button",
 	"x":0,
 	"y":0,
 	"width":1,
 	"height":.125,
+	"mode": "momentary",
 	"address":"/btn1"
 },
 
 {
-	"name":"buttontest",
+	"name":"button2",
 	"type":"Button",
 	"x":0,
 	"y":.130,
 	"width":1,
 	"height":.125,
+	"mode": "momentary",
 	"address":"/btn2"
 },
 
 {
-	"name":"buttontest",
+	"name":"button3",
 	"type":"Button",
 	"x":0,
 	"y":.260,
 	"width":1,
 	"height":.125,
+	"mode": "momentary",
 	"address":"/btn3"
 },
 
 {
-	"name":"buttontest",
+	"name":"button4",
 	"type":"Button",
 	"x":0,
 	"y":.390,
 	"width":1,
 	"height":.125,
+	"mode": "momentary",
 	"address":"/btn4"
 },
 
 {
-	"name":"buttontest",
+	"name":"button5",
 	"type":"Button",
 	"x":0,
 	"y":.520,
 	"width":1,
 	"height":.125,
+	"mode": "momentary",
 	"address":"/btn5"
 },
 
 {
-	"name":"buttontest",
+	"name":"button6",
 	"type":"Button",
 	"x":0,
 	"y":.650,
 	"width":1,
 	"height":.125,
+	"mode": "momentary",
 	"address":"/btn6"
 },
 
 {
-	"name":"buttontest",
+	"name":"button7",
 	"type":"Button",
 	"x":0,
 	"y":.780,
 	"width":1,
 	"height":.125,
+	"mode": "momentary",
 	"address":"/btn7"
 },
 

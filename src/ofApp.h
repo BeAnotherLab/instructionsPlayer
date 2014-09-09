@@ -3,7 +3,11 @@
 #include "ofMain.h"
 #include "ofxOsc.h"
 
-#define PORT 6999
+#define HOST "localhost"
+#define LISTENER_PORT 6999
+#define SENDER_PORT 8080
+#define OSC_RECEIVER_PORT "192.168.1.96"
+
 
 class ofApp : public ofBaseApp{
 
@@ -32,6 +36,7 @@ class ofApp : public ofBaseApp{
         ofSoundPlayer  sound7;
     
         ofxOscReceiver receiver;
+        ofxOscSender   sender;
     
         int rxButton1, rxButton2, rxButton3, rxButton4, rxButton5, rxButton6, rxButton7;
     

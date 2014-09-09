@@ -16,14 +16,16 @@ void ofApp::setup(){
     
 	font.loadFont("luximb.ttf", 12);
     
-    receiver.setup(PORT);
-    cout << "listening for osc messages on port " << PORT << "\n";
+    receiver.setup(LISTENER_PORT);
+    sender.setup(OSC_RECEIVER_PORT, SENDER_PORT);
+    cout << "listening for osc messages on port " << LISTENER_PORT << "\n";
     
     sound0.play(); //initialize music
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
 
 	ofBackground(255,255,255);
 
@@ -66,15 +68,83 @@ void ofApp::update(){
         }
         
     }
+    
+    if (sound1.getIsPlaying() || sound2.getIsPlaying() || sound3.getIsPlaying() || sound4.getIsPlaying() || sound5.getIsPlaying() || sound6.getIsPlaying() || sound7.getIsPlaying()) {
+        somethingIsPlaying = true;
+    }
+    
+    else somethingIsPlaying = false;
+    
+
+    ofxOscMessage sendM;
+    sendM.setAddress("/nowPlaying");
+    
+    //play tracks through OSC buttons
+    
+    if (rxButton1 == 1 && !somethingIsPlaying){ 
+		sound1.play();
+        sendM.addStringArg("sound 1 is playing");
+        sender.sendMessage(sendM);
+	}
+
+    
+    else if (rxButton2 == 1 && !somethingIsPlaying){
+		sound2.play();
+        sendM.addStringArg("sound 2 is playing");
+        sender.sendMessage(sendM);
+        
+	}
+    
+    else if (rxButton3 == 1 && !somethingIsPlaying){
+		sound3.play();
+        sendM.addStringArg("sound 3 is playing");
+        sender.sendMessage(sendM);
+    }
+    
+    else if (rxButton4 == 1 && !somethingIsPlaying){
+		sound4.play();
+        sendM.addStringArg("sound 4 is playing");
+        sender.sendMessage(sendM);
+    }
+    
+    else if (rxButton5 == 1 && !somethingIsPlaying){
+		sound5.play();
+        sendM.addStringArg("sound 5 is playing");
+        sender.sendMessage(sendM);
+    }
+    
+    else if (rxButton6 == 1 && !somethingIsPlaying){
+		sound6.play();
+        sendM.addStringArg("sound 6 is playing");
+        sender.sendMessage(sendM);
+    }
+    
+    else if (rxButton7 == 1 && !somethingIsPlaying){
+		sound7.play();
+        sendM.addStringArg("sound 7 is playing");
+        sender.sendMessage(sendM);
+    }
+    
+    //SIMPLE SIDECHAIN COMPRESSION
+    if (somethingIsPlaying)
+        sound0.setVolume(0.5);
+    
+    else if (!somethingIsPlaying) {
+        sound0.setVolume(1);
+        sendM.addStringArg("nothing is playing");
+        sender.sendMessage(sendM);
+    }
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    
+
 
 	// draw the background colors:
 	float widthDiv = ofGetWidth() / 3.0f;
     float heightDiv = ofGetHeight() / 7.0f;
-    bool voiceIsPlaying;
     
     //buttons
 	ofSetHexColor(0xeeeeee);
@@ -92,119 +162,61 @@ void ofApp::draw(){
     ofSetHexColor(0xeeeeee);
 	ofRect(0,heightDiv*6,ofGetWidth(),heightDiv);
     
-    cout << rxButton1 << " osc \n";
     
-    ofSetHexColor(0x000000);
-    font.drawString((ofToString(rxButton1)), 5,15);
-    
-    if (sound1.getIsPlaying() || sound2.getIsPlaying() || sound3.getIsPlaying() || sound4.getIsPlaying() || sound5.getIsPlaying() || sound6.getIsPlaying() || sound7.getIsPlaying()) {
-        somethingIsPlaying = true;
-    }
-    
-    else somethingIsPlaying = false;
-
-    //play tracks through OSC buttons
-    if (rxButton1 == 1 && !somethingIsPlaying){ //&& !sound1.getIsPlaying()
-		sound1.play();
-	}
-    
-    else if (rxButton2 == 1 && !somethingIsPlaying){
-		sound2.play();
-	}
-    
-    else if (rxButton3 == 1 && !somethingIsPlaying){
-		sound3.play();
-    }
-    
-    else if (rxButton4 == 1 && !somethingIsPlaying){
-		sound4.play();
-    }
-    
-    else if (rxButton5 == 1 && !somethingIsPlaying){
-		sound5.play();
-    }
-    
-    else if (rxButton6 == 1 && !somethingIsPlaying){
-		sound6.play();
-    }
-    
-    else if (rxButton7 == 1 && !somethingIsPlaying){
-		sound7.play();
-    }
-    
-    
-    
-	if (sound1.getIsPlaying()) {
+	if (sound1.getIsPlaying())
         ofSetHexColor(0xFF0000); //text color
-        voiceIsPlaying;
-    } else {
+    else
         ofSetHexColor(0x000000);
-        voiceIsPlaying == false;
-    }
+
         font.drawString("sound 1", 15,40);
 
     
-	if (sound2.getIsPlaying()) {
+	if (sound2.getIsPlaying())
         ofSetHexColor(0xFF0000);
-        voiceIsPlaying;
-    } else {
+    else
         ofSetHexColor(0x000000);
-        voiceIsPlaying == false;
-    }
+
         font.drawString("sound 2", 15,heightDiv+40);
         
 
-	if (sound3.getIsPlaying()){
+	if (sound3.getIsPlaying())
         ofSetHexColor(0xFF0000);
-        voiceIsPlaying;
-    } else {
+    else
         ofSetHexColor(0x000000);
-        voiceIsPlaying == false;
-    }
+        
         font.drawString("sound 3", 15,heightDiv*2+40);
     
-    if (sound4.getIsPlaying()){
+    if (sound4.getIsPlaying())
         ofSetHexColor(0xFF0000);
-        voiceIsPlaying;
-	} else {
+    else
         ofSetHexColor(0x000000);
-        voiceIsPlaying == false;
-    }
+
         font.drawString("sound 4", 15,heightDiv*3+40);
     
     
-    if (sound5.getIsPlaying()) {
+    if (sound5.getIsPlaying())
         ofSetHexColor(0xFF0000);
-        voiceIsPlaying;
-	} else {
+    else
         ofSetHexColor(0x000000);
-        voiceIsPlaying == false;
-    }
+
         font.drawString("sound 5", 15,heightDiv*4+40);
     
     
-    if (sound6.getIsPlaying()){
+    if (sound6.getIsPlaying())
         ofSetHexColor(0xFF0000);
-        voiceIsPlaying;
-	} else {
+    else
         ofSetHexColor(0x000000);
-        voiceIsPlaying == false;
-    }
+        
         font.drawString("sound 6", 15,heightDiv*5+40);
     
     
-    if (sound7.getIsPlaying()) {
+    if (sound7.getIsPlaying())
         ofSetHexColor(0xFF0000);
-        voiceIsPlaying;
-	} else {
+	else
         ofSetHexColor(0x000000);
-        voiceIsPlaying == false;
-    }
+    
         font.drawString("sound 7", 15,heightDiv*6+40);
-    
-    
-    if (voiceIsPlaying)
-        sound0.setVolume(0.5); //sidechain gate
+
     
 
 }
